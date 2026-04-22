@@ -12,7 +12,7 @@ stages {
 
     stage('Checkout Code') {
         steps {
-            git 'https://github.com/harshoctal/node-demo.git'
+            git branch: 'main', url: 'https://github.com/harshoctal/node-demo.git'
         }
     }
 
@@ -27,10 +27,10 @@ stages {
         steps {
             withCredentials([usernamePassword(
                 credentialsId: DOCKERHUB_CREDS,
-                usernameVariable: 'USER',
-                passwordVariable: 'PASS'
+                usernameVariable: 'DOCKER_USER',
+                passwordVariable: 'DOCKER_PASS'
             )]) {
-                sh "echo $PASS | docker login -u $USER --password-stdin"
+                sh "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
             }
         }
     }
@@ -50,11 +50,14 @@ stages {
 }
 
 post {
+    always {
+        echo "Pipeline finished."
+    }
     success {
-        echo "✅ Build & Deploy Successful!"
+        echo "SUCCESS: Build & Deployment completed."
     }
     failure {
-        echo "❌ Build Failed! Check logs."
+        echo "ERROR: Something failed. Check logs."
     }
 }
 ```

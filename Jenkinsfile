@@ -9,12 +9,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
-            steps {
-                git 'https://github.com/harshoctal/node-demo.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh "docker build -t $IMAGE:$TAG ."

@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: node-demo
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: myapp
+      app: node-demo
   template:
     metadata:
       labels:
-        app: myapp
+        app: node-demo
     spec:
       containers:
-      - name: myapp
-        image: yourdockerhubusername/myapp:latest
+      - name: node-demo
+        image: kuber19/node-demo:latest
         ports:
         - containerPort: 3000

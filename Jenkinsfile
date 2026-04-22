@@ -1,9 +1,3 @@
-
----
-
-## ✅ CLEAN Jenkinsfile (Paste this exactly)
-
-:::writing{variant="standard" id="finalclean"}
 pipeline {
     agent any
 
@@ -54,30 +48,3 @@ pipeline {
         }
     }
 }
-:::
-
----
-
-## ⚠️ Important Rule (Remember)
-
-👉 Jenkinsfile = **pure Groovy only**
-
-| Allowed ✅ | Not Allowed ❌ |
-|----------|--------------|
-| pipeline {} | ``` |
-| sh "" | Markdown |
-| environment {} | HTML |
-
----
-
-## 🚀 After Fix
-
-1. Commit changes in :contentReference[oaicite:1]{index=1}  
-2. Go to :contentReference[oaicite:2]{index=2}  
-3. Click **Build Now**
-
----
-
-## 🎯 Expected Result
-
-Now you will see:

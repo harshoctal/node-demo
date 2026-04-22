@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE = "kuber19/node-demo"
         TAG = "${BUILD_NUMBER}"
-        DOCKERHUB_CREDS = "dockerhub-creds"
+        DOCKERHUB_CREDS = "655ded39-f4ab-4c38-ae7c-07261a366b3a"
     }
 
     stages {

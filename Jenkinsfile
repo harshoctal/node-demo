@@ -9,6 +9,12 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 sh "docker build -t $IMAGE:$TAG ."
@@ -28,7 +34,7 @@ pipeline {
             }
         }
 
-        stage('Push Image') {
+        stage('Push Image to DockerHub') {
             steps {
                 sh "docker push $IMAGE:$TAG"
                 sh "docker push $IMAGE:latest"
@@ -37,8 +43,27 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh "kubectl set image deployment/node-app node-app=$IMAGE:$TAG"
+                sh """
+                kubectl set image deployment/node-app \
+                node-demo=$IMAGE:$TAG
+                """
             }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                sh "kubectl rollout status deployment/node-app"
+                sh "kubectl get pods"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "✅ Pipeline Success - App Deployed"
+        }
+        failure {
+            echo "❌ Pipeline Failed - Check Logs"
         }
     }
 }
